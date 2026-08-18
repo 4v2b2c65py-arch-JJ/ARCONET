@@ -53,6 +53,17 @@ function getDefaultState() {
       },
       progress: 0,
       active: false
+    },
+    training: {
+      active: false,
+      startedAt: null,
+      currentStep: 0,
+      totalSteps: 0,
+      loss: null,
+      accuracy: 0,
+      weights: null,
+      converged: false,
+      logs: []
     }
   };
 }

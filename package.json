@@ -4,6 +4,8 @@
   "description": "Spatial EDL recovery interface with Apple-grade UI design",
   "private": true,
   "scripts": {},
-  "dependencies": {},
+  "dependencies": {
+    "@glimmer/vm": "^1.0.0"
+  },
   "devDependencies": {}
 }
