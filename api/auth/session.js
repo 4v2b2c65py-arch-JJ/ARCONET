@@ -24,6 +24,9 @@ module.exports = (req, res) => {
 
   const userDevices = state.devices.filter(d => d.userId === account.id);
 
+  const recoveryAttempts = userDevices.reduce((sum, d) => sum + (d.recoveryHistory?.length || 0), 0);
+  const activeSessions = state.sessions.filter(s => s.userId === account.id).length;
+
   res.status(200).json({
     user: {
       id: account.id,
@@ -31,6 +34,22 @@ module.exports = (req, res) => {
       name: account.name,
       deviceLimit: account.deviceLimit,
       deviceCount: userDevices.length
+    },
+    usage: {
+      devices: {
+        used: userDevices.length,
+        limit: account.deviceLimit,
+        percentage: Math.round((userDevices.length / account.deviceLimit) * 100)
+      },
+      recoveryAttempts,
+      sessions: activeSessions,
+      maxSessions: 5
+    },
+    account: {
+      id: account.id,
+      email: account.email,
+      name: account.name,
+      createdAt: account.createdAt
     }
   });
 };

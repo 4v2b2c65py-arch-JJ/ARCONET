@@ -229,15 +229,20 @@
 
     async function loadUsage() {
       try {
-        const res = await fetch('/api/account/usage', {
+        const res = await fetch('/api/auth/session', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
-        document.getElementById('accountId').textContent = data.account.id.slice(0, 8);
-        document.getElementById('accountEmail').textContent = data.account.email;
-        document.getElementById('accountCreated').textContent = new Date(data.account.createdAt).toLocaleDateString();
-        document.getElementById('usageRecovery').textContent = data.usage.recoveryAttempts;
-        document.getElementById('usageSessions').textContent = data.usage.sessions;
+        if (data.account) {
+          document.getElementById('accountId').textContent = data.account.id.slice(0, 8);
+          document.getElementById('accountEmail').textContent = data.account.email;
+          document.getElementById('accountCreated').textContent = new Date(data.account.createdAt).toLocaleDateString();
+        }
+        if (data.usage) {
+          document.getElementById('usageDevices').textContent = `${data.usage.devices.used} / ${data.usage.devices.limit}`;
+          document.getElementById('usageRecovery').textContent = data.usage.recoveryAttempts;
+          document.getElementById('usageSessions').textContent = data.usage.sessions;
+        }
       } catch (e) {}
     }
 
