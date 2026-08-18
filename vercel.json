@@ -1,16 +1,9 @@
 {
   "version": 2,
   "builds": [
-    { "src": "/index.html", "use": "@vercel/static" },
-    { "src": "/dashboard.html", "use": "@vercel/static" },
-    { "src": "/devices.html", "use": "@vercel/static" },
-    { "src": "/training.html", "use": "@vercel/static" },
-    { "src": "/login.html", "use": "@vercel/static" },
-    { "src": "/styles.css", "use": "@vercel/static" },
-    { "src": "/styles-landing.css", "use": "@vercel/static" },
-    { "src": "/app.js", "use": "@vercel/static" },
     { "src": "api/auth.js", "use": "@vercel/node" },
     { "src": "api/training.js", "use": "@vercel/node" },
+    { "src": "api/test.js", "use": "@vercel/node" },
     { "src": "api/device/status.js", "use": "@vercel/node" },
     { "src": "api/device/telemetry.js", "use": "@vercel/node" },
     { "src": "api/recovery/start.js", "use": "@vercel/node" },
