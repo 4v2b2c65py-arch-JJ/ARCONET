@@ -1,4 +1,4 @@
-const { hashPassword, generateToken, loadState, saveState, findSession } = require('../_shared/state');
+const { hashPassword, generateToken, loadState, saveState, findSession } = require('./_shared/state');
 
 const AUTH_OPS = ['login', 'register', 'session', 'logout'];
 
