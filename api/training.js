@@ -1,5 +1,5 @@
-const { loadState, saveState, findSession } = require('./_shared/state');
-const { GlimmerTrainer } = require('./_shared/trainer');
+const { loadState, saveState, findSession } = require('./lib/state');
+const { GlimmerTrainer } = require('./lib/trainer');
 
 let trainer = null;
 
