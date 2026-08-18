@@ -1,48 +1,52 @@
 const crypto = require('crypto');
 
-const RECOVERY_STATES = ['detect', 'identify', 'authenticate', 'flash', 'verify'];
 const DEVICE_STATES = {
-  NOT_CONNECTED: { id: 'not_connected', label: 'Not Connected', icon: 'disconnected' },
-  EDL_DETECTED: { id: 'edl_detected', label: 'EDL Mode', icon: 'usb' },
-  RECOVERY_READY: { id: 'recovery_ready', label: 'Recovery Ready', icon: 'ready' },
-  FLASHING: { id: 'flashing', label: 'Flashing', icon: 'flash' },
-  RECOVERED: { id: 'recovered', label: 'Recovered', icon: 'success' },
-  ERROR: { id: 'error', label: 'Error', icon: 'error' }
+  NOT_CONNECTED: { id: 'not_connected', label: '● DEVICE OFFLINE' },
+  EDL_DETECTED: { id: 'edl_detected', label: '● DEVICE ONLINE' },
+  RECOVERY_READY: { id: 'recovery_ready', label: '● RECOVERY READY' },
+  FLASHING: { id: 'flashing', label: '● FLASHING' },
+  RECOVERED: { id: 'recovered', label: '● RECOVERED' }
 };
 
-let currentDeviceStatus = {
-  id: crypto.randomUUID(),
-  state: DEVICE_STATES.NOT_CONNECTED,
-  usb: {
-    port: null,
-    vid: null,
-    pid: null,
-    interface: null
-  },
-  device: {
-    hwid: null,
-    serial: null,
-    model: null,
-    partitionSize: null
-  },
-  sahara: {
-    version: null,
-    mode: null
-  },
-  lastSeen: null
-};
+const RECOVERY_STATES = ['detect', 'identify', 'authenticate', 'flash', 'verify'];
 
-let recoveryState = {
-  pipeline: RECOVERY_STATES.map((state, idx) => ({ id: state, index: idx, status: 'pending' })),
-  current: null,
-  validation: {
-    deviceMatch: false,
-    firmwareMatch: false,
-    loaderVerified: false,
-    partitionMapValid: false
-  },
-  progress: 0,
-    active: false
-};
+const STATE_FILE = '/tmp/arconet_state.json';
 
-module.exports = { crypto, RECOVERY_STATES, DEVICE_STATES, currentDeviceStatus, recoveryState };
+function loadState() {
+  try {
+    const fs = require('fs');
+    if (fs.existsSync(STATE_FILE)) {
+      return JSON.parse(fs.readFileSync(STATE_FILE, 'utf8'));
+    }
+  } catch (e) {}
+
+  return {
+    deviceId: crypto.randomUUID(),
+    deviceState: DEVICE_STATES.NOT_CONNECTED,
+    usb: { port: null, vid: null, pid: null, interface: null },
+    device: { hwid: null, serial: null, model: null, partitionSize: null },
+    sahara: { version: null, mode: null },
+    lastSeen: null,
+    recovery: {
+      pipeline: RECOVERY_STATES.map((s, i) => ({ id: s, index: i, status: 'pending' })),
+      current: null,
+      validation: {
+        deviceMatch: false,
+        firmwareMatch: false,
+        loaderVerified: false,
+        partitionMapValid: false
+      },
+      progress: 0,
+      active: false
+    }
+  };
+}
+
+function saveState(state) {
+  try {
+    const fs = require('fs');
+    fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
+  } catch (e) {}
+}
+
+module.exports = { crypto, DEVICE_STATES, RECOVERY_STATES, loadState, saveState };

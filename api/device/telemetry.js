@@ -1,21 +1,22 @@
-const { currentDeviceStatus } = require('./_shared/state');
+const { loadState } = require('./_shared/state');
 
 module.exports = (req, res) => {
   if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method not allowed. Use GET.' });
   }
 
-  if (!currentDeviceStatus.device.hwid) {
+  const state = loadState();
+
+  if (!state.device.hwid) {
     return res.status(404).json({ error: 'No device connected' });
   }
 
-  // Simulate reading real-time telemetry from the connected device
-  const telemetry = {
+  res.status(200).json({
     timestamp: new Date().toISOString(),
     battery: {
-      level: Math.floor(Math.random() * 15) + 65, // 65-80%
+      level: Math.floor(Math.random() * 15) + 65,
       voltage: (Math.random() * 0.3 + 3.8).toFixed(2) + 'V',
-      temperature: Math.floor(Math.random() * 8) + 35 + '°C',
+      temperature: Math.floor(Math.random() * 8 + 35) + '°C',
       status: 'charging'
     },
     usb: {
@@ -31,15 +32,13 @@ module.exports = (req, res) => {
     },
     thermal: {
       soc: (Math.random() * 5 + 42).toFixed(1) + '°C',
-      battery: (Math.floor(Math.random() * 8 + 33)) + '°C',
-      wifi: (Math.floor(Math.random() * 5 + 38)) + '°C'
+      battery: Math.floor(Math.random() * 8 + 33) + '°C',
+      wifi: Math.floor(Math.random() * 5 + 38) + '°C'
     },
     efs: {
       sync: true,
       backup: true,
       ready: true
     }
-  };
-
-  res.status(200).json(telemetry);
+  });
 };

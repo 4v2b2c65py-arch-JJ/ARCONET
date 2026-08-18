@@ -1,29 +1,28 @@
-const { recoveryState, RECOVERY_STATES } = require('./_shared/state');
+const { RECOVERY_STATES, loadState, saveState } = require('./_shared/state');
 
 module.exports = (req, res) => {
   if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ error: 'Method not allowed. Use GET.' });
   }
 
-  const pipelineWithStatus = RECOVERY_STATES.map((stateId, idx) => {
-    const pipelineEntry = recoveryState.pipeline[idx];
-    return {
-      id: stateId,
-      name: stateId.charAt(0).toUpperCase() + stateId.slice(1),
-      status: pipelineEntry.status,
-      index: idx
-    };
-  });
+  const state = loadState();
+  const rs = state.recovery;
+
+  const pipelineWithStatus = RECOVERY_STATES.map((stateId, idx) => ({
+    id: stateId,
+    name: stateId.charAt(0).toUpperCase() + stateId.slice(1),
+    status: rs.pipeline[idx].status,
+    index: idx
+  }));
+
+  const allPassed = Object.values(rs.validation).every(Boolean);
 
   res.status(200).json({
     pipeline: pipelineWithStatus,
-    current: recoveryState.current,
-    validation: recoveryState.validation,
-    progress: recoveryState.progress,
-    active: recoveryState.active,
-    canStart: recoveryState.validation.deviceMatch &&
-              recoveryState.validation.firmwareMatch &&
-              recoveryState.validation.loaderVerified &&
-              recoveryState.validation.partitionMapValid
+    current: rs.current,
+    validation: rs.validation,
+    progress: rs.progress,
+    active: rs.active,
+    canStart: allPassed
   });
 };

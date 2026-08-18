@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "builds": [
     {
       "src": "/index.html",
@@ -27,7 +27,5 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  "cleanOutputs": true,
-  "maxLambdaSize": "10MB"
+  ]
 }
