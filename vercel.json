@@ -35,13 +35,11 @@
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
+    { "src": "/api/auth/login", "dest": "/api/auth?op=login" },
+    { "src": "/api/auth/register", "dest": "/api/auth?op=register" },
+    { "src": "/api/auth/session", "dest": "/api/auth?op=session" },
+    { "src": "/api/auth/logout", "dest": "/api/auth?op=logout" },
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
