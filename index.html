@@ -5,6 +5,125 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ARCONET — Spatial EDL Recovery</title>
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles-landing.css">
+  <style>
+    .hero-logo {
+      font-family: 'SF Mono', monospace;
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 6px;
+      background: linear-gradient(90deg, rgba(96,180,255,0.9), rgba(100,200,255,0.5));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .hero-tagline {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      letter-spacing: 2px;
+      max-width: 560px;
+      line-height: 1.6;
+      margin: 0 auto;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      background: rgba(10, 10, 18, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .nav-logo {
+      font-family: 'SF Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(96, 180, 255, 0.9);
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    .nav-link {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    .nav-link:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    .hero-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding-top: 64px;
+      text-align: center;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 80px auto 0;
+    }
+    .feature-card {
+      background: rgba(20, 20, 30, 0.55);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 32px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(96, 180, 255, 0.1);
+      border-radius: 14px;
+      font-size: 20px;
+    }
+    .feature-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+    .feature-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .footer {
+      text-align: center;
+      padding: 40px 16px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+  </style>
 </head>
 <body>
   <div class="space-bg">
@@ -12,209 +131,97 @@
     <div class="gradient-overlay"></div>
   </div>
 
-  <div class="dashboard">
-    <!-- Header -->
-    <header class="dashboard-header">
-      <h1 class="dashboard-title">RECOVERY</h1>
-      <div class="device-status-badge" id="deviceStatusBadge">
-        <span class="status-dot" id="statusDot"></span>
-        <span class="status-text" id="statusText">● DEVICE OFFLINE</span>
-      </div>
-    </header>
-
-    <!-- Device Panel -->
-    <div class="device-panel">
-      <div class="panel-header">
-        <span class="panel-title">DEVICE LANDSCAPE</span>
-      </div>
-      <div class="device-visualization">
-        <div class="device-placeholder" id="devicePlaceholder">
-          <div class="device-outline">
-            <div class="device-screen">
-              <div class="device-model" id="deviceModel">No Device Connected</div>
-              <div class="device-hwid" id="deviceHwid">—</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <nav class="nav-bar">
+    <div class="nav-logo">ARCONET</div>
+    <div class="nav-links">
+      <a class="nav-link" onclick="scrollToSection('features')">Features</a>
+      <a class="nav-link" onclick="scrollToSection('docs')">Documentation</a>
+      <a class="nav-link" href="/login.html">Login</a>
     </div>
+  </nav>
 
-    <!-- Connection Column -->
-    <div class="column connection-column">
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">CONNECTION</span>
-        </div>
-        <div class="panel-body">
-          <div class="connection-item">
-            <span class="label">USB/EDL</span>
-            <span class="value connected" id="usbStatus">Not connected</span>
-          </div>
-          <div class="connection-item">
-            <span class="label">Protocol</span>
-            <span class="value" id="protocolStatus">—</span>
-          </div>
-          <div class="connection-item">
-            <span class="label">Device ID</span>
-            <span class="value" id="deviceIdValue">—</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">DEVICE TELEMETRY</span>
-        </div>
-        <div class="panel-body">
-          <div class="telemetry-grid">
-            <div class="telemetry-item">
-              <span class="telemetry-label">Battery</span>
-              <span class="telemetry-value" id="batteryValue">—</span>
-            </div>
-            <div class="telemetry-item">
-              <span class="telemetry-label">USB Power</span>
-              <span class="telemetry-value" id="usbPowerValue">—</span>
-            </div>
-            <div class="telemetry-item">
-              <span class="telemetry-label">Temperature</span>
-              <span class="telemetry-value" id="tempValue">—</span>
-            </div>
-            <div class="telemetry-item">
-              <span class="telemetry-label">Storage</span>
-              <span class="telemetry-value" id="storageValue">—</span>
-            </div>
-          </div>
-        </div>
-      </div>
+  <main class="hero-section">
+    <div class="hero-logo">ARCONET</div>
+    <p class="hero-tagline">
+      Spatial EDL recovery interface with Apple-grade instrument panel design.
+      Visualize device recovery state through an immersive space landscape dashboard.
+    </p>
+    <div class="hero-actions">
+      <button class="action-btn primary" onclick="window.location.href='/login.html'" style="padding: 14px 32px; font-size: 14px;">
+        Get Started
+      </button>
+      <button class="action-btn" onclick="window.location.href='/login.html'" style="padding: 14px 32px; font-size: 14px;">
+        Login
+      </button>
     </div>
+  </main>
 
-    <!-- Recovery Pipeline Column -->
-    <div class="column recovery-column">
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">RECOVERY PIPELINE</span>
-        </div>
-        <div class="panel-body">
-          <div class="recovery-orbit" id="recoveryOrbit">
-            <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMin meet">
-              <defs>
-                <linearGradient id="orbitGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="rgba(255,255,255,0.1)" />
-                  <stop offset="50%" stop-color="rgba(100,200,255,0.3)" />
-                  <stop offset="100%" stop-color="rgba(255,255,255,0.1)" />
-                </linearGradient>
-              </defs>
-              <path d="M20,160 Q80,40 160,40 Q240,40 300,160" fill="none" stroke="url(#orbitGradient)" stroke-width="2" opacity="0.4" />
-              <g id="orbitNodes">
-                <circle cx="20" cy="160" r="6" fill="rgba(255,255,255,0.15)" />
-                <circle cx="80" cy="40" r="6" fill="rgba(255,255,255,0.15)" />
-                <circle cx="160" cy="40" r="6" fill="rgba(255,255,255,0.15)" />
-                <circle cx="240" cy="40" r="6" fill="rgba(255,255,255,0.15)" />
-                <circle cx="300" cy="160" r="6" fill="rgba(255,255,255,0.15)" />
-              </g>
-            </svg>
-            <div class="orbit-labels">
-              <div class="orbit-label" style="left:0%">Detect</div>
-              <div class="orbit-label" style="left:20%">Identify</div>
-              <div class="orbit-label active" style="left:40%">Auth</div>
-              <div class="orbit-label" style="left:60%">Flash</div>
-              <div class="orbit-label" style="left:80%">Verify</div>
-            </div>
-          </div>
-          <div class="progress-bar-container">
-            <div class="progress-bar" id="progressBar">
-              <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-text">
-              <span id="progressPercent">0%</span>
-              <span id="progressStatus">Idle</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel validation-panel">
-        <div class="panel-header">
-          <span class="panel-title">VALIDATION CHECKS</span>
-        </div>
-        <div class="panel-body">
-          <div class="validation-grid">
-            <div class="validation-item" id="checkDevice">
-              <span class="check-icon">○</span>
-              <span class="check-label">Device Match</span>
-            </div>
-            <div class="validation-item" id="checkFirmware">
-              <span class="check-icon">○</span>
-              <span class="check-label">Firmware Match</span>
-            </div>
-            <div class="validation-item" id="checkLoader">
-              <span class="check-icon">○</span>
-              <span class="check-label">Loader Verified</span>
-            </div>
-            <div class="validation-item" id="checkPartition">
-              <span class="check-icon">○</span>
-              <span class="check-label">Partition Map Valid</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel action-panel">
-        <div class="panel-body action-body">
-          <button class="action-btn" id="validateBtn" disabled>
-            <span class="btn-icon">V</span>
-            <span class="btn-text">Validate</span>
-          </button>
-          <button class="action-btn primary" id="startRecoveryBtn" disabled>
-            <span class="btn-icon">S</span>
-            <span class="btn-text">Start Recovery</span>
-          </button>
-        </div>
-      </div>
+  <section class="feature-grid" id="features">
+    <div class="feature-card">
+      <div class="feature-icon">🛰️</div>
+      <h3 class="feature-title">Spatial Interface</h3>
+      <p class="feature-desc">
+        Apple-grade instrument panel with floating device panels, recovery orbit visualization,
+        and progressive disclosure diagnostics.
+      </p>
     </div>
-
-    <!-- Telemetry Column -->
-    <div class="column telemetry-column">
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">THERMAL</span>
-        </div>
-        <div class="panel-body">
-          <div class="telemetry-dials">
-            <div class="dial">
-              <div class="dial-label">SoC</div>
-              <div class="dial-value" id="socValue">—</div>
-            </div>
-            <div class="dial">
-              <div class="dial-label">Battery</div>
-              <div class="dial-value" id="batteryTempValue">—</div>
-            </div>
-            <div class="dial">
-              <div class="dial-label">WiFi</div>
-              <div class="dial-value" id="wifiValue">—</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-header">
-          <span class="panel-title">ADVANCED DIAGNOSTICS</span>
-          <button class="expand-toggle" id="expandDiagnostics">
-            <span class="toggle-icon">⌄</span>
-          </button>
-        </div>
-        <div class="panel-body diagnostics-body" id="diagnosticsBody" style="display:none">
-          <div class="log-container" id="logContainer">
-            <div class="log-entry">21:40:42 — EDL interface initialized</div>
-            <div class="log-entry">21:40:43 — USB enumeration complete</div>
-            <div class="log-entry">21:40:44 — Sahara protocol v3 handshake</div>
-          </div>
-        </div>
-      </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔌</div>
+      <h3 class="feature-title">EDL Detection</h3>
+      <p class="feature-desc">
+        Automatic Qualcomm EDL device detection via USB enumeration and Sahara protocol handshake.
+      </p>
     </div>
-  </div>
+    <div class="feature-card">
+      <div class="feature-icon">✓</div>
+      <h3 class="feature-title">Confidence Gates</h3>
+      <p class="feature-desc">
+        GPT partition re-read (gpt_main0), firmware validation, and loader verification
+        before any destructive operations.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3 class="feature-title">Telemetry</h3>
+      <p class="feature-desc">
+        Real-time device telemetry including battery, thermal, USB power, and storage metrics.
+      </p>
+    </div>
+  </section>
 
-  <script src="/app.js"></script>
+  <footer class="footer" id="docs">
+    <p>ARCONET v1.0 — Spatial EDL Recovery Interface</p>
+  </footer>
+
+  <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Starfield animation
+    const starfield = document.getElementById('starfield');
+    for (let i = 0; i < 200; i++) {
+      const star = document.createElement('div');
+      star.style.position = 'absolute';
+      star.style.width = Math.random() * 2 + 'px';
+      star.style.height = star.style.width;
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.background = `rgba(255, 255, 255, ${Math.random() * 0.6 + 0.2})`;
+      star.style.borderRadius = '50%';
+      star.style.animation = `twinkle ${Math.random() * 4 + 2}s infinite infinite`;
+      starfield.appendChild(star);
+    }
+
+    // Add CSS for twinkle animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes twinkle {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>

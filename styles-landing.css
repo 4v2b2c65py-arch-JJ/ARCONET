@@ -1,0 +1,215 @@
+/* Landing page specific styles */
+.space-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.starfield {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1px at 20% 30%, rgba(255,255,255,0.6) 1px, transparent 1px),
+    radial-gradient(1px at 40% 70%, rgba(255,255,255,0.5) 1px, transparent 1px),
+    radial-gradient(1px at 60% 20%, rgba(255,255,255,0.4) 1px, transparent 1px),
+    radial-gradient(1px at 80% 80%, rgba(255,255,255,0.55) 1px, transparent 1px),
+    radial-gradient(1.5px at 10% 50%, rgba(96,180,255,0.3) 1.5px, transparent 1.5px),
+    radial-gradient(1px at 30% 90%, rgba(96,180,255,0.25) 1px, transparent 1px),
+    radial-gradient(1px at 70% 60%, rgba(96,180,255,0.2) 1px, transparent 1px),
+    radial-gradient(2px at 50% 50%, rgba(96,180,255,0.15) 2px, transparent 2px);
+  background-size: 100px 100px;
+}
+
+.gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(96, 180, 255, 0.03) 0%, transparent 40%),
+    radial-gradient(ellipse at 30% 70%, rgba(96, 180, 255, 0.02) 0%, transparent 40%),
+    radial-gradient(ellipse at 70% 70%, rgba(96, 180, 255, 0.02) 0%, transparent 40%);
+}
+
+.auth-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 60px 16px 20px;
+}
+
+.auth-card {
+  background: rgba(15, 15, 22, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.auth-logo {
+  font-family: 'SF Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(96, 180, 255, 0.9);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.auth-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.auth-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(20, 20, 30, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: rgba(96, 180, 255, 0.3);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-error {
+  color: var(--error-color);
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 16px;
+  min-height: 16px;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(96,180,255,0.2), rgba(96,180,255,0.4));
+  border: 1px solid rgba(96, 180, 255, 0.3);
+  border-radius: 16px;
+  color: var(--bg-primary);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.auth-submit:hover {
+  box-shadow: 0 6px 28px rgba(96, 180, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13px;
+}
+
+.toggle-mode {
+  color: var(--text-secondary);
+}
+
+.toggle-mode a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.toggle-mode a:hover {
+  text-decoration: underline;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.auth-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 11px;
+  transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+  color: var(--accent);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 16px;
+}
+
+.device-list-panel {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
