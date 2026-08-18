@@ -1,0 +1,9 @@
+{
+  "name": "arconet",
+  "version": "1.0.0",
+  "description": "Spatial EDL recovery interface with Apple-grade UI design",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
