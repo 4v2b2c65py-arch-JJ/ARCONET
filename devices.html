@@ -170,7 +170,7 @@
     document.getElementById('deviceLimit').textContent = user.deviceLimit || 5;
 
     function logout() {
-      fetch('/api/auth/logout', {
+      fetch('/api/auth?op=logout', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       }).then(() => {
@@ -185,7 +185,7 @@
         window.location.href = '/login.html';
         return;
       }
-      fetch('/api/auth/session', {
+      fetch('/api/auth?op=session', {
         headers: { Authorization: `Bearer ${token}` }
       }).then(r => {
         if (!r.ok) {
@@ -198,7 +198,7 @@
 
     async function loadDevices() {
       try {
-        const res = await fetch('/api/devices', {
+        const res = await fetch('/api/auth?op=devices', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -229,7 +229,7 @@
 
     async function loadUsage() {
       try {
-        const res = await fetch('/api/auth/session', {
+        const res = await fetch('/api/auth?op=session', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -275,7 +275,7 @@
       }
 
       try {
-        const res = await fetch('/api/devices', {
+        const res = await fetch('/api/auth?op=device-add', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
           body: JSON.stringify({ name, model, serial, hwid, usbVid: '05c6', usbPid: '9008' })
@@ -295,8 +295,8 @@
     async function deleteDevice(id) {
       if (!confirm('Remove this device?')) return;
       try {
-        await fetch(`/api/devices/${id}`, {
-          method: 'DELETE',
+        await fetch(`/api/auth?op=device-delete&id=${id}`, {
+          method: 'POST',
           headers: { Authorization: `Bearer ${token}` }
         });
         loadDevices();

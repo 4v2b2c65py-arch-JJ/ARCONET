@@ -291,7 +291,7 @@
     document.getElementById('userName').textContent = user.name || user.email || 'User';
 
     function logout() {
-      fetch('/api/auth/logout', {
+      fetch('/api/auth?op=logout', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       }).then(() => {
@@ -305,7 +305,7 @@
     if (!token) {
       window.location.href = '/login.html';
     } else {
-      fetch('/api/auth/session', {
+      fetch('/api/auth?op=session', {
         headers: { Authorization: `Bearer ${token}` }
       }).then(r => {
         if (!r.ok) {

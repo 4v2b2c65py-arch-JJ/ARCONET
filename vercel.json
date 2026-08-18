@@ -10,22 +10,5 @@
     { "src": "/styles-landing.css", "use": "@vercel/static" },
     { "src": "/app.js", "use": "@vercel/static" },
     { "src": "api/**/*.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api/auth/login", "dest": "/api/auth?op=login", "methods": ["POST"] },
-    { "src": "/api/auth/register", "dest": "/api/auth?op=register", "methods": ["POST"] },
-    { "src": "/api/auth/session", "dest": "/api/auth?op=session", "methods": ["GET"] },
-    { "src": "/api/auth/logout", "dest": "/api/auth?op=logout", "methods": ["POST"] },
-    { "src": "/api/devices", "dest": "/api/auth?op=devices", "methods": ["GET"] },
-    { "src": "/api/devices", "dest": "/api/auth?op=device-add", "methods": ["POST"] },
-    { "src": "/api/devices/(.*)", "dest": "/api/auth?op=device-detail&id=$1", "methods": ["GET"] },
-    { "src": "/api/devices/(.*)", "dest": "/api/auth?op=device-delete&id=$1", "methods": ["DELETE"] },
-    { "src": "/api/training/state", "dest": "/api/training?op=state", "methods": ["GET"] },
-    { "src": "/api/training/start", "dest": "/api/training?op=start", "methods": ["POST"] },
-    { "src": "/api/training/step", "dest": "/api/training?op=step", "methods": ["POST"] },
-    { "src": "/api/training/stop", "dest": "/api/training?op=stop", "methods": ["POST"] },
-    { "src": "/api/training/weights", "dest": "/api/training?op=weights", "methods": ["GET"] },
-    { "src": "/api/(.*)", "dest": "/api/$1.js" },
-    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
