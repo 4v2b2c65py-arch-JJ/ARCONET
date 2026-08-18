@@ -1,4 +1,4 @@
-const { DEVICE_STATES, RECOVERY_STATES, loadState, saveState } = require('./_shared/state');
+const { DEVICE_STATES, RECOVERY_STATES, loadState, saveState } = require('../_shared/state');
 
 module.exports = (req, res) => {
   if (req.method !== 'POST') {

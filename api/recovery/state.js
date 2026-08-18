@@ -1,4 +1,4 @@
-const { RECOVERY_STATES, loadState, saveState } = require('./_shared/state');
+const { RECOVERY_STATES, loadState, saveState } = require('../_shared/state');
 
 module.exports = (req, res) => {
   if (req.method !== 'GET') {

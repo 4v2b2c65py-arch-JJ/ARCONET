@@ -1,4 +1,4 @@
-const { loadState } = require('./_shared/state');
+const { loadState } = require('../_shared/state');
 
 module.exports = (req, res) => {
   if (req.method !== 'GET') {
