@@ -249,7 +249,7 @@
 
     async function fetchState() {
       try {
-        const res = await fetch('/api/training?op=state', {
+        const res = await fetch('/api/auth?op=training-state', {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();
@@ -291,7 +291,7 @@
 
     async function startTraining() {
       try {
-        const res = await fetch('/api/training?op=start', { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
+        const res = await fetch('/api/auth?op=training-start', { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
         const data = await res.json();
         log(data.message || 'Training started', 'active');
       } catch (e) {
@@ -304,7 +304,7 @@
       if (autoTrainInterval) clearInterval(autoTrainInterval);
       autoTrainInterval = setInterval(async () => {
         try {
-          await fetch('/api/training?op=step', {
+          await fetch('/api/auth?op=training-step', {
             method: 'POST',
             headers: { Authorization: `Bearer ${token}` },
             body: JSON.stringify({ steps: 50 })
@@ -321,7 +321,7 @@
       clearInterval(autoTrainInterval);
       autoTrainInterval = null;
       try {
-        const res = await fetch('/api/training?op=stop', { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
+        const res = await fetch('/api/auth?op=training-stop', { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
         const data = await res.json();
         log(data.message || 'Training stopped', 'completed');
       } catch (e) {}
@@ -330,7 +330,7 @@
 
     async function runStep() {
       try {
-        const res = await fetch('/api/training?op=step', {
+        const res = await fetch('/api/auth?op=training-step', {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` },
           body: JSON.stringify({ steps: 50 })
@@ -344,7 +344,7 @@
     }
 
     async function initSession() {
-      try {
+        try {
         const res = await fetch('/api/auth?op=session', {
           headers: { Authorization: `Bearer ${token}` }
         });
